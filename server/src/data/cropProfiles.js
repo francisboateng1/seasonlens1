@@ -1,0 +1,16 @@
+const sources = [
+  { name: 'FAO Crop Information', url: 'https://www.fao.org/land-water/databases-and-software/crop-information/en/' },
+  { name: 'FAO Ecocrop database', url: 'https://ecocrop.review.fao.org/ecocrop/srv/en/home' }
+];
+const provisional = (cropId,name,family,isLegume,growingDays,temperatureC,rainfallMmPerSeason,soilPreferences,rotation,nutrientNote,assumptions) => ({
+  cropId,name,family,isLegume,growingDays,temperatureC,rainfallMmPerSeason,soilPreferences,rotation,nutrientNote,confidence:'low',provisional:true,sources,assumptions
+});
+export const cropProfiles = {
+  maize: provisional('maize','Maize','Poaceae',false,{min:90,max:150},{min:18,optimumMin:22,optimumMax:30,max:35},{min:500,max:800},['well-drained loam','sandy loam'],'Avoid continuous maize; rotate with a legume where locally appropriate.','High nutrient demand; residue and fertilizer planning should be locally tested.',['Broad ranges, not Ghana cultivar recommendations.','Duration depends on variety, planting date and management.']),
+  cowpea: provisional('cowpea','Cowpea','Fabaceae',true,{min:60,max:100},{min:20,optimumMin:25,optimumMax:30,max:38},{min:300,max:700},['well-drained sandy loam','loam'],'Legume phase can diversify rotations; do not assume a fixed nitrogen credit without residue and soil data.','Biological nitrogen fixation depends on rhizobia, soil and management.',['Variety and photoperiod response change duration.','Waterlogging sensitivity varies by cultivar and stage.']),
+  groundnut: provisional('groundnut','Groundnut','Fabaceae',true,{min:90,max:140},{min:20,optimumMin:25,optimumMax:30,max:35},{min:500,max:1000},['loose well-drained sandy loam','sandy soil'],'Rotate with cereals and avoid consecutive groundnut crops to help manage disease pressure.','Calcium availability and soil structure matter for pod development.',['Water needs depend on evaporative demand, cultivar and soil.','Local disease pressure is not represented.']),
+  rice: provisional('rice','Rice','Poaceae',false,{min:100,max:150},{min:20,optimumMin:25,optimumMax:32,max:38},{min:800,max:1500},['clay loam','clay','level fields with dependable water'],'Consider water regime and disease history; lowland and upland systems differ.','Nutrient and water management differ by rice ecology.',['Profile does not distinguish irrigated, lowland rainfed and upland rice.','Water control is not inferred from rainfall alone.']),
+  cassava: provisional('cassava','Cassava','Euphorbiaceae',false,{min:240,max:450},{min:18,optimumMin:25,optimumMax:29,max:38},{min:600,max:1500},['well-drained sandy loam','loam'],'Plan rotations around long field occupancy; manage carry-over pests and nutrient removal.','Long duration and nutrient removal make fertility monitoring important.',['Harvest age varies by variety and market use.','Short weather windows cannot represent whole-cycle water supply.']),
+  okra: provisional('okra','Okra','Malvaceae',false,{min:45,max:90},{min:20,optimumMin:24,optimumMax:32,max:38},{min:400,max:800},['well-drained loam','sandy loam'],'Rotate with unrelated families and use local pest and disease history.','Harvest frequency and nutrient demand depend on production system.',['Broad ranges, not a locally calibrated calendar.','Pest, disease and market criteria are not included.'])
+};
+export const cropList = Object.values(cropProfiles);

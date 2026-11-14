@@ -1,0 +1,21 @@
+{
+  "name": "seasonlens-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file-if-exists=../.env --watch src/index.js",
+    "start": "node --env-file-if-exists=../.env src/index.js",
+    "test": "node --test",
+    "test:watch": "node --test --watch",
+    "smoke:nasa": "node scripts/nasa-smoke.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

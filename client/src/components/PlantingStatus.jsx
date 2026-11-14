@@ -1,0 +1,2 @@
+const labels={favourable:'YOU CAN PLANT NOW',moderate:'CONDITIONS ARE MODERATE',unfavourable:'IT IS NOT SAFE TO PLANT NOW',insufficient_data:'NOT ENOUGH DATA TO ASSESS'};
+export default function PlantingStatus({status='insufficient_data',headline}){return <div className={`planting-status status-${status}`}><span className="status-dot"/><div><span className="eyebrow">PLANTING ASSESSMENT</span><strong>{headline||labels[status]||labels.insufficient_data}</strong></div></div>;}

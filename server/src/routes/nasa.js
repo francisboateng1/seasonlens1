@@ -1,0 +1,5 @@
+import {Router} from 'express';import {config} from '../config/config.js';import {fetchNasaObservations,NASA_PARAMETERS} from '../services/nasaPower.js';import {jsonOk} from '../utils/dataFormatter.js';import {asyncHandler} from '../middleware/asyncHandler.js';
+export const nasaRouter=Router();
+nasaRouter.get('/health',(req,res)=>res.json(jsonOk({service:'NASA POWER Daily Point API',configured:Boolean(config.nasaBaseUrl),endpoint:config.nasaBaseUrl,liveConnection:'not_checked',note:'A successful observations request verifies the upstream connection.'})));
+nasaRouter.get('/parameters',(req,res)=>res.json(jsonOk(Object.values(NASA_PARAMETERS),{community:config.nasaCommunity,temporalResolution:'daily',timeStandard:'UTC'})));
+nasaRouter.get('/observations',asyncHandler(async(req,res)=>{const {latitude,longitude,start,end}=req.query;const parameters=req.query.parameters?String(req.query.parameters).split(','):Object.keys(NASA_PARAMETERS);const data=await fetchNasaObservations({latitude,longitude,start,end,parameters});res.json(jsonOk(data));}));

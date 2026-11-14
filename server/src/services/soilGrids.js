@@ -1,0 +1,2 @@
+export const SOILGRIDS_STATUS_URL='https://www.isric.org/explore/soilgrids/';
+export function getSoilGridsStatus(){return {available:false,status:'temporarily_unavailable',source:'ISRIC SoilGrids',sourceUrl:SOILGRIDS_STATUS_URL,message:'ISRIC currently reports that the SoilGrids REST API is temporarily paused. SeasonLens does not substitute estimated or fabricated values.',retrievedAt:new Date().toISOString(),dataType:'estimated_modelled_data_when_available',nextStep:'Use a farm soil test or manual field observation clearly labeled as measured or estimated.'};}

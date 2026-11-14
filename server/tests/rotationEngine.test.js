@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {generateRotations} from '../src/engine/rotationEngine.js';
+test('rotation options are deterministic and explained',()=>{const input={selectedCrops:['maize','cowpea','groundnut'],seasons:3,priorities:['legumes','diversify'],previousCrop:'maize'},a=generateRotations(input),b=generateRotations(input);assert.deepEqual(a,b);assert.ok(a.length>0&&a.length<=3);assert.equal(a[0].sequence.length,3);assert.ok(a[0].whySuggested.length>0);});
+test('rotation validates season count and crop IDs',()=>{assert.throws(()=>generateRotations({selectedCrops:['maize'],seasons:1}),/seasons/);assert.throws(()=>generateRotations({selectedCrops:['unknown'],seasons:2}),/Unknown crop/);});

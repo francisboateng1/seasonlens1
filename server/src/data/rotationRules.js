@@ -1,0 +1,1 @@
+export const rotationRules = { repeatPenalty:28, sameFamilyPenalty:12, legumeBonus:12, legumeAfterCerealBonus:8, diversityBonus:8, priorityWeights:{diversify:1.2,legumes:1.3,soilCare:1.1,shortDuration:0.5,waterEfficiency:0.7} };

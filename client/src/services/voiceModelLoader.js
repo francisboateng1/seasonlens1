@@ -1,0 +1,2 @@
+export function getVoiceCapabilities(){const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;return {recognition:Boolean(Recognition),synthesis:Boolean(window.speechSynthesis),recognitionConstructor:Recognition||null};}
+export async function loadVoiceModel(){return {available:false,reason:'No remote speech or AI model is configured. The optional assistant uses browser speech features only.'};}
