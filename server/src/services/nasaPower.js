@@ -1,12 +1,55 @@
 import { config } from '../config/config.js';
 import { validateCoordinates, validatePowerDates, ValidationError } from '../utils/validation.js';
 import { toIsoDate } from '../utils/dateUtils.js';
-export const NASA_PARAMETERS={
-  PRECTOTCORR:{code:'PRECTOTCORR',name:'Corrected precipitation',unit:'mm/day',temporalResolution:'daily'},
-  T2M:{code:'T2M',name:'Temperature at 2 metres (daily mean)',unit:'°C',temporalResolution:'daily'},
-  T2M_MAX:{code:'T2M_MAX',name:'Maximum temperature at 2 metres',unit:'°C',temporalResolution:'daily'},
-  T2M_MIN:{code:'T2M_MIN',name:'Minimum temperature at 2 metres',unit:'°C',temporalResolution:'daily'},
-  RH2M:{code:'RH2M',name:'Relative humidity at 2 metres',unit:'%',temporalResolution:'daily'}
+export const NASA_PARAMETERS = {
+  PRECTOTCORR: {
+    code: 'PRECTOTCORR',
+    name: 'Corrected precipitation',
+    unit: 'mm/day',
+    temporalResolution: 'daily'
+  },
+  T2M: {
+    code: 'T2M',
+    name: 'Temperature at 2 metres (daily mean)',
+    unit: '\u00B0C',
+    temporalResolution: 'daily'
+  },
+  T2M_MAX: {
+    code: 'T2M_MAX',
+    name: 'Maximum temperature at 2 metres',
+    unit: '\u00B0C',
+    temporalResolution: 'daily'
+  },
+  T2M_MIN: {
+    code: 'T2M_MIN',
+    name: 'Minimum temperature at 2 metres',
+    unit: '\u00B0C',
+    temporalResolution: 'daily'
+  },
+  RH2M: {
+    code: 'RH2M',
+    name: 'Relative humidity at 2 metres',
+    unit: '%',
+    temporalResolution: 'daily'
+  },
+  ALLSKY_SFC_SW_DWN: {
+    code: 'ALLSKY_SFC_SW_DWN',
+    name: 'All-sky surface shortwave solar radiation',
+    unit: 'MJ/m^2/day',
+    temporalResolution: 'daily'
+  },
+  WS10M: {
+    code: 'WS10M',
+    name: 'Wind speed at 10 metres',
+    unit: 'm/s',
+    temporalResolution: 'daily'
+  },
+  PS: {
+    code: 'PS',
+    name: 'Surface atmospheric pressure',
+    unit: 'kPa',
+    temporalResolution: 'daily'
+  }
 };
 const cache=new Map();
 const MAX_CACHE_ENTRIES=100;

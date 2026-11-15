@@ -1,0 +1,42 @@
+# Render Blueprint for the SeasonLens Express API.
+# TiDB Cloud stores persistent farm and soil records; no Render disk is needed.
+services:
+  - type: web
+    name: seasonlens-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 24.22.1
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_PROVIDER
+        value: tidb
+      - key: TIDB_HOST
+        sync: false
+      - key: TIDB_PORT
+        value: "4000"
+      - key: TIDB_USER
+        sync: false
+      - key: TIDB_PASSWORD
+        sync: false
+      - key: TIDB_DATABASE
+        sync: false
+      - key: TIDB_ENABLE_SSL
+        value: "true"
+      # Replace with the exact Vercel production URL after creating the Vercel project.
+      - key: CLIENT_ORIGIN
+        value: https://REPLACE-WITH-YOUR-VERCEL-DOMAIN.vercel.app
+      - key: NASA_POWER_TIMEOUT_MS
+        value: "20000"
+      - key: NASA_POWER_CACHE_TTL_MS
+        value: "900000"
+      - key: NASA_POWER_COMMUNITY
+        value: AG
+      - key: DEFAULT_OBSERVATION_DAYS
+        value: "30"

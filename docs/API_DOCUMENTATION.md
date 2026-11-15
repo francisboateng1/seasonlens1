@@ -5,7 +5,7 @@ Base URL in development: `http://localhost:4000/api`. All responses are JSON. Su
 ## Health and catalogs
 
 ### `GET /api/health`
-Returns service name, status and server timestamp.
+Returns service name, status, database provider (`sqlite` in local development/tests or `tidb` when hosted), and server timestamp. The health check also executes a lightweight database ping.
 
 ### `GET /api/nasa/health`
 Returns adapter status and NASA POWER service URL. This checks application readiness, not guaranteed upstream uptime.

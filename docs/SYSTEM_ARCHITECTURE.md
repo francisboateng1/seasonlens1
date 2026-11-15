@@ -1,6 +1,6 @@
 # System architecture
 
-SeasonLens is a modular monolith with a React single-page client and a single Express/SQLite backend. The client never contacts NASA or SoilGrids directly.
+SeasonLens is a modular monolith with a React single-page client and a single Express backend with a pluggable persistence adapter (local SQLite and hosted TiDB Cloud). The client never contacts NASA or SoilGrids directly.
 
 ## Request flow
 
@@ -17,13 +17,13 @@ SeasonLens is a modular monolith with a React single-page client and a single Ex
 - `services/`: NASA POWER client, SoilGrids status adapter and optional voice service status.
 - `engine/`: deterministic environmental, soil, rotation and advisory calculations.
 - `data/`: crop profiles, soil profiles, rotation rules and threshold configuration.
-- `database/`: SQLite initialization, schema and queries.
+- `database/`: async repository interface, SQLite local/test adapter, TiDB Cloud MySQL adapter, and schema initialization.
 - `utils/`: date handling, validation and data formatting.
 - `middleware/`: request ID and centralized error response.
 
 ## Data flow and source honesty
 
-NASA POWER observations are requested only by the server, normalized into date/value arrays, annotated with source and metadata, and cached in process memory for a configurable TTL. SQLite persists farms and user-entered soil records. NASA observation cache is not durable storage. SoilGrids REST is not called while ISRIC reports the service paused. Field measurements are stored separately and labeled as user-entered.
+NASA POWER observations are requested only by the server, normalized into date/value arrays, annotated with source and metadata, and cached in process memory for a configurable TTL. SQLite persists farms and user-entered soil records in local development/tests; TiDB Cloud persists them in the hosted Render service. NASA observation cache is not durable storage. SoilGrids REST is not called while ISRIC reports the service paused. Field measurements are stored separately and labeled as user-entered.
 
 ## Decision engines
 
@@ -43,6 +43,6 @@ Environmental assessment computes summary statistics only from available values.
 2. NASA data: `server/src/services/nasaPower.js`, `server/src/engine/environmentalAssessmentEngine.js`, NASA tests.
 3. Soil and crop data: `soilGrids.js`, `soilProfiles.js`, `cropProfiles.js`, `plantingThresholds.js`.
 4. Decision engines: `server/src/engine/`, `rotationRules.js`, `advisoryRules.js` and engine tests.
-5. Backend/integration: Express entry, routes, SQLite, validation, docs, build/test integration and release.
+5. Backend/integration: Express entry, routes, database adapter/schema, validation, docs, build/test integration and release.
 
 Use feature branches named `feature/<area>-<short-description>`. Open pull requests against `main`, assign an owner/reviewer, run tests/build, and avoid editing another member's module without coordination. Shared API contracts and data structures should be changed through reviewed PRs.
